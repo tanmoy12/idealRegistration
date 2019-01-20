@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+  padding: 0;
+  
+  font-family: "Arcon";
+}
+
+@font-face {
+  font-family: "Arcon";
+  src: url("./Assets/arcon/Arcon-Regular.otf");
+}

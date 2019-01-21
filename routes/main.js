@@ -172,13 +172,13 @@ mainRouter.post("/event", function(req, res) {
                     }]
                   };
                 
-                  /*transporter.sendMail(mailOptions, function (err) {
+                  transporter.sendMail(mailOptions, function (err) {
                     if (err) {
                       //return cb(err, null);
                     }
                     //return cb(null, "success");
                     console.log("mail sent");
-                  });*/
+                  });
                   ph.exit();
                 });
               });

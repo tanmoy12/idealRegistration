@@ -9,13 +9,14 @@ import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-const styles = {
+const styles =theme=>( {
   root: {
     display: "flex",
     //flexDirection: "column",
     justifyContent: "center",
     alignItems: "center"
   },
+
   input: {
     display: "flex",
     //justifyContent: "center",
@@ -24,9 +25,11 @@ const styles = {
     flexDirection: "column"
   },
   textField: {
-    width: 200
+    
+   width: 200
   }
-};
+
+});
 class UserInput extends React.Component {
   state = {
     sm: false,
@@ -48,14 +51,26 @@ class UserInput extends React.Component {
     lqtm: "",
     gqtm: "",
     mqtm: "",
-    errors: {}
+    errors: {},
+    ecnt:0,
+    glberr:""
   };
 
   handleState = name => event => {
     this.setState({ [name]: event.target.value });
   };
   handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
+    let e=event.target.checked;
+    if(this.state.ecnt<=4 && e){
+      this.setState({[name]: e,ecnt:this.state.ecnt+1,glberr:""})
+    }
+    else if(e){
+      this.setState({glberr:'You can participate atmost 5 events.'})
+    }
+    else if(this.state.ecnt>0 && !e){
+      this.setState({[name]: e,ecnt:this.state.ecnt-1,glberr:""})
+    }
+    //this.setState({ [name]: event.target.checked });
   };
 
   addEvent = () => {
@@ -193,18 +208,23 @@ class UserInput extends React.Component {
             alignItems: "center"
           }}
         >
+         <FormHelperText
+            id="component-error-text"
+            style={{ color: "red", fontSize: 20 }}
+          >
+            {this.state.glberr}
+          </FormHelperText>
           <FormHelperText
             id="component-error-text"
-            style={{ color: "red", fontSize: 30 }}
+            style={{ color: "red", fontSize: 20 }}
           >
             {this.props.glberr}
           </FormHelperText>
         </div>
         <div style={{ display: "flex" }}>
           <div className={classes.input}>
-            <FormControl component="fieldset" className={classes.formControl}>
+              <FormControl  className={classes.formControl}>
               <FormLabel component="legend">Individual Events</FormLabel>
-              <FormGroup>
                 {this.props.participant.level !== "University" && (
                   <FormControlLabel
                     control={
@@ -331,8 +351,7 @@ class UserInput extends React.Component {
                     label="Scrapbook Submission"
                   />
                 )}
-              </FormGroup>
-            </FormControl>
+                 </FormControl>
           </div>
           <div className={classes.input}>
             <FormControl component="fieldset" className={classes.formControl}>

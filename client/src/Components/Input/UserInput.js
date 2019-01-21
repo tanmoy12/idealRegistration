@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { MenuItem, Button, FormHelperText } from "@material-ui/core";
 import { userInput } from "../../Validator/userValidator";
-const styles = {
+const styles =theme=>( {
   root: {
     display: "flex",
     flexDirection: "column",
@@ -12,14 +12,20 @@ const styles = {
     alignItems: "center"
   },
   input: {
+    [theme.breakpoints.up('sm')]: {
+      width:450
+    },
     display: "flex",
     flex: 1,
     flexDirection: "flex-end"
   },
   textField: {
-    width: 200
+    [theme.breakpoints.up('sm')]: {
+      width:450
+    }
+    //width: 200
   }
-};
+});
 let level = ["Primary", "Secondary", "College", "University"];
 class UserInput extends React.Component {
   state = {
@@ -124,6 +130,7 @@ class UserInput extends React.Component {
           label="Level"
           value={this.state.level}
           onChange={this.handleChange("level")}
+          className={classes.input}
         >
           {level.map((option, i) => (
             <MenuItem key={i} value={option}>

@@ -3,7 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 const config = require("./settings/config");
 const app = express();
 // connect database
@@ -56,4 +56,4 @@ app.use(function(req, res) {
 });
 // run server
 app.listen(port);
-console.log(`Bigprint listening on ${port}`);
+console.log(`NDC English Carnival listening on ${port}`);

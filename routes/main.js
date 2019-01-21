@@ -51,8 +51,8 @@ mainRouter.post("/event", function(req, res) {
 				"		color: black;" +
 				"			margin: 0px;" +
 				"	text-align: center;" +
-				"			font-weight: 500;" +
-				'	font-family: "Montserrat";' +
+				"			font-weight: 300;" +
+				// '	font-family: "Montserrat";' +
 				"	}" +
 				"		h2 {" +
 				"		color: black;" +
@@ -85,7 +85,8 @@ mainRouter.post("/event", function(req, res) {
 				"	}" +
 				"	</style>" +
 				"	</head>" +
-				'	<body style="background-image:url(background.jpg); max-width: 800px; height: 100%;">' +
+				'	<body style="background-image:url(background.jpg); max-width: 800px; height: 90%;">' +
+			//'<body style="background-image:url(background3.jpg); background-repeat: no-repeat; background-size: 100% 100%; ">' +
 				'<div class="left-container" style="position: absolute; left: 0px; width: 400px">' +
 				"	<h1>5th NATIONAL</h1>" +
 				"	<h1>ENGLISH CARNIVAL</h1>" +
@@ -126,9 +127,9 @@ mainRouter.post("/event", function(req, res) {
 				'	<h2 style="text-align: right">' +
 				data.name +
 				"</h2>" +
-				'		<h2 style="text-align: right">' +
+				'		<h4 style="text-align: right">' +
 				data.institution +
-				"</h2>" +
+				"</h4>" +
 				'	<h4 style="text-align: right">' +
 				data.level +
 				" Level</h4>" +
@@ -168,7 +169,7 @@ mainRouter.post("/event", function(req, res) {
 								var mailOptions = {
 									from: "tanmoy@headless.ltd",
 									to: data.email,
-									//cc: "ndec.bd@gmail.com",
+									bcc: "ndec.bd@gmail.com",
 									subject: "Registration in 5th NEC",
 									text:
 										"Hello,\n\n" +

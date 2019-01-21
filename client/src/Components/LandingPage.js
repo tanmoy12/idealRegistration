@@ -7,7 +7,7 @@ import { FormHelperText } from "@material-ui/core";
 import EventInput from "./Input/EventInput";
 const styles = theme => ({
   border: {
-    width: "75%",
+    width: "80%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -22,20 +22,23 @@ class LandingPage extends Component {
     tabname: "Participant Registration",
     glberr: "",
     tabs: 0,
-    participant: {}
+    participant: {},
+    button:false
   };
   handleaddParticipant = data => {
     let that=this;
-    addParitcipant(
-      data.name,
-      data.institution,
-      data.contact,
-      data.email,
-      data.level,
-      (err, data) => {
-        //console.log(data,'data',err);
+    this.setState({button:true},()=>{
+
+      addParitcipant(
+        data.name,
+        data.institution,
+        data.contact,
+        data.email,
+        data.level,
+        (err, data) => {
+          //console.log(data,'data',err);
         if(!data){
-          that.setState({ glberr:err.msg });
+          that.setState({ glberr:err.msg,button:false });
         }
         else if (data.success) {
           that.setState(
@@ -50,10 +53,11 @@ class LandingPage extends Component {
           );
         } 
         else {
-          that.setState({ glberr: data.err.msg });
+          that.setState({ glberr: data.err.msg,button:false});
         }
       }
-    );
+      );
+    })
   };
   addEvents = (individualEvents, teamEvents, id) => {
     let that=this;
@@ -87,6 +91,7 @@ class LandingPage extends Component {
           <UserInput
             addParitcipant={this.handleaddParticipant}
             glberr={this.state.glberr}
+            button={this.state.button}
           />
         )}
         {this.state.tabs === 1 && (
@@ -115,6 +120,8 @@ class LandingPage extends Component {
         )}
 
         <div className={classes.border} />
+        <div style={{display:'flex', alignItems:'center', justifyContent:'center', marginBottom:'1%'}}><p> Powered By <a  target="_blank" href='https://headless.ltd'>Headless Technologies Limited </a></p>
+      </div>
       </div>
     );
   }

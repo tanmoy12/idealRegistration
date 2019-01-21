@@ -12,16 +12,38 @@ import Checkbox from "@material-ui/core/Checkbox";
 const styles =theme=>( {
   root: {
     display: "flex",
+            //justifyContent: "center",
+           // alignItems: "center",
+    //display: "flex",
+    [theme.breakpoints.down('sm')]: {
+      flexDirection:'column',
+      margin:'0 10%'
+    },
     //flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center"
+    //justifyContent: "center",
+    //alignItems: "center"
   },
 
   input: {
     display: "flex",
     //justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
+    //alignItems: "center",
+    [theme.breakpoints.up('md')]: {
+      flex:1,
+      marginLeft:"10%"
+    },
+    //flex: 1,
+    flexDirection: "column"
+  },
+  input1: {
+    display: "flex",
+    //justifyContent: "center",
+    //alignItems: "center",
+    [theme.breakpoints.up('md')]: {
+      flex:1,
+      marginRight:"10%"
+    },
+    //flex: 1,
     flexDirection: "column"
   },
   textField: {
@@ -199,8 +221,9 @@ class UserInput extends React.Component {
       gq,
       mq
     } = this.state;
+    //console.log(this.props.participant.level)
     return (
-      <div>
+      <div >
         <div
           style={{
             display: "flex",
@@ -221,9 +244,9 @@ class UserInput extends React.Component {
             {this.props.glberr}
           </FormHelperText>
         </div>
-        <div style={{ display: "flex" }}>
-          <div className={classes.input}>
-              <FormControl  className={classes.formControl}>
+        <div className={classes.root}>
+          <div className={classes.input} >
+              <FormControl component="fieldset"  className={classes.formControl}>
               <FormLabel component="legend">Individual Events</FormLabel>
                 {this.props.participant.level !== "University" && (
                   <FormControlLabel
@@ -260,8 +283,8 @@ class UserInput extends React.Component {
                     label="Recitation"
                   />
                 )}
-                {this.props.participant.level !== "University" ||
-                  (this.props.participant.level !== "Primary" && (
+                {(this.props.participant.level !== "University" &&
+                  this.props.participant.level !== "Primary") && (
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -272,7 +295,9 @@ class UserInput extends React.Component {
                       }
                       label="Turn Coat"
                     />
-                  ))}
+                  )}
+                  {(this.props.participant.level !== "University" &&
+                  this.props.participant.level !== "Primary") && (
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -282,7 +307,7 @@ class UserInput extends React.Component {
                     />
                   }
                   label="Extempore Speech"
-                />
+                />)}
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -315,7 +340,8 @@ class UserInput extends React.Component {
                   }
                   label="Composition Submission"
                 />
-                {this.props.participant.level !== "University" && (
+                {(this.props.participant.level !== "University" &&
+                  this.props.participant.level !== "Primary") && (
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -353,14 +379,14 @@ class UserInput extends React.Component {
                 )}
                  </FormControl>
           </div>
-          <div className={classes.input}>
+          <div className={classes.input1}>
             <FormControl component="fieldset" className={classes.formControl}>
               <FormLabel component="legend">Team Events</FormLabel>
               <FormHelperText style={{ color: "green", fontSize: 18 }}>
                 You and Your TeamMates should have the same Team name
               </FormHelperText>
               <FormGroup>
-                {(this.props.participant.level !== "University" ||
+                {(this.props.participant.level !== "University" &&
                   this.props.participant.level !== "Primary") && (
                   <FormControlLabel
                     control={
@@ -370,9 +396,11 @@ class UserInput extends React.Component {
                         value="mp"
                       />
                     }
-                    label="Multimedia Presentation(Maximum 3 members)"
+                    label="Multimedia Presentation(Maximum 2 members)"
                   />
                 )}
+                {(this.props.participant.level !== "University" &&
+                  this.props.participant.level !== "Primary") && (
                 <TextField
                   disabled={!mp}
                   id="standard-search"
@@ -383,11 +411,12 @@ class UserInput extends React.Component {
                   onChange={this.handleState("mptm")}
                   margin="normal"
                 />
+                  )}
                 <FormHelperText style={{ color: "red" }}>
                   {this.state.errors.mp}
                 </FormHelperText>
                 {this.props.participant.level !== "Primary" && (
-                  <div>
+                  
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -398,6 +427,8 @@ class UserInput extends React.Component {
                       }
                       label="Literature Quiz(Maximum 3 members)"
                     />
+                    )}
+                     {this.props.participant.level !== "Primary" && (
                     <TextField
                       disabled={!lq}
                       id="standard-search"
@@ -408,11 +439,12 @@ class UserInput extends React.Component {
                       onChange={this.handleState("lqtm")}
                       margin="normal"
                     />
+                    )}
                     <FormHelperText style={{ color: "red" }}>
                       {this.state.errors.lq}
                     </FormHelperText>
-                  </div>
-                )}
+                  
+                
                 <FormControlLabel
                   control={
                     <Checkbox

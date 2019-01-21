@@ -9,12 +9,16 @@ const styles =theme=>( {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    margin:'0 10%',
+    marginBottom:'5%'
   },
   input: {
-    [theme.breakpoints.up('sm')]: {
-      width:450
-    },
+    // [theme.breakpoints.up('sm')]: {
+    //   width:450
+    // },
+    width:"100%",
+    maxWidth:450,
     display: "flex",
     flex: 1,
     flexDirection: "flex-end"
@@ -34,7 +38,8 @@ class UserInput extends React.Component {
     email: "",
     contact: "",
     level: "Primary",
-    error: {}
+    error: {},
+    button:false
   };
   handleChange = props => events => {
     this.setState({ [props]: events.target.value });
@@ -52,13 +57,13 @@ class UserInput extends React.Component {
       this.setState({ error: errors });
     } else {
       this.props.addParitcipant(data);
-      this.setState({
-        error: {},
-        name: "",
-        email: "",
-        institution: "",
-        contact: ""
-      });
+      // this.setState({
+      //   error: {},
+      //   name: "",
+      //   email: "",
+      //   institution: "",
+      //   contact: ""
+      // });
     }
   };
   render() {
@@ -142,6 +147,7 @@ class UserInput extends React.Component {
           {this.state.error.level}
         </FormHelperText>
         <Button
+        disabled={this.props.button}
           variant="contained"
           style={{ margin: 10 }}
           color="secondary"

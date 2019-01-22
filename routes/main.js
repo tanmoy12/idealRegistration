@@ -11,7 +11,7 @@ const mysql = require('mysql');
 
 const nodemailer = require("nodemailer");
 
-mainRouter.post("/participant", function(req, res) {
+mainRouter.post("/participant", function (req, res) {
 	console.log(req.body);
 
 	Participant.insertNewParticipant(req.body, (status, err, data) => {
@@ -22,7 +22,7 @@ mainRouter.post("/participant", function(req, res) {
 		}
 	});
 });
-mainRouter.post("/event", function(req, res) {
+mainRouter.post("/event", function (req, res) {
 	console.log(req.body);
 	//return res.json({ success: true });
 	Participant.updateEvents(req.body, (status, err, data) => {
@@ -155,10 +155,10 @@ mainRouter.post("/event", function(req, res) {
 				}
 				console.log("The file has been saved!");
 
-				phantom.create().then(function(ph) {
-					ph.createPage().then(function(page) {
-						page.open(data.email + ".html").then(function(status) {
-							page.render(pdfName).then(function() {
+				phantom.create().then(function (ph) {
+					ph.createPage().then(function (page) {
+						page.open(data.email + ".html").then(function (status) {
+							page.render(pdfName).then(function () {
 								console.log("Page Rendered");
 								var transporter = nodemailer.createTransport({
 									host: "headless.ltd",
@@ -188,7 +188,7 @@ mainRouter.post("/event", function(req, res) {
 									]
 								};
 
-								transporter.sendMail(mailOptions, function(err) {
+								transporter.sendMail(mailOptions, function (err) {
 									if (err) {
 										//return cb(err, null);
 									}
@@ -212,7 +212,7 @@ mainRouter.post("/event", function(req, res) {
 	});
 });
 
-mainRouter.post("/participants", function(req, res) {
+mainRouter.post("/participants", function (req, res) {
 	console.log(req.body);
 	//return res.json({ success: true });
 	Participant.getParticipant(req.body.page, (status, err, data) => {
@@ -224,7 +224,7 @@ mainRouter.post("/participants", function(req, res) {
 	});
 });
 
-mainRouter.get("/ttest", function(req, res) {
+mainRouter.get("/ttest", function (req, res) {
 	// mongoose.Promise = require("bluebird");
 	// mongoose
 	// 	.connect(
@@ -261,15 +261,15 @@ mainRouter.get("/ttest", function(req, res) {
 		database: "headaubg_ndc"
 	});
 
-	con.connect(function(err) {
+	con.connect(function (err) {
 		if (err) {
-			return cb(500, { msg: "Internal server Error" }, null);
+			return res.json({ok: false});
 		}
-        let sql = "SELECT * FROM `user` WHERE 1";
+		let sql = "SELECT * FROM `user` WHERE 1";
 
-		con.query(sql, function(err, result) {
-			if (err) return cb(500, { msg: "Internal server Error" }, null);
-			return cb(200, null, JSON.stringify(result));
+		con.query(sql, function (err, result) {
+			if (err) return res.json({ok: false});
+			return res.json(JSON.stringify(result));
 		});
 	});
 });

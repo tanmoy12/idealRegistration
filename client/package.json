@@ -13,7 +13,7 @@
     "validator": "^10.8.0",
     "axios": "^0.18.0"
   },
-  "proxy": "http://localhost:5001/",
+  "proxy": "http://localhost:5002/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

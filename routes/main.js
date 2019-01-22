@@ -256,16 +256,21 @@ mainRouter.get("/ttest", function(req, res) {
 
 	let con = mysql.createConnection({
 		host: "localhost",
-		user: "headaubg_ndc",
+		user: "headaubg_ndcuser",
 		password: "ndc1234",
 		database: "headaubg_ndc"
 	});
-	
+
 	con.connect(function(err) {
 		if (err) {
-			return res.json({ok: false, err: err});
+			return cb(500, { msg: "Internal server Error" }, null);
 		}
-		return res.json({ok: "Db initialized"});
+        let sql = "SELECT * FROM `user` WHERE 1";
+
+		con.query(sql, function(err, result) {
+			if (err) return cb(500, { msg: "Internal server Error" }, null);
+			return cb(200, null, result);
+		});
 	});
 });
 

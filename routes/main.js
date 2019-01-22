@@ -3,7 +3,7 @@ const mainRouter = express.Router();
 const fs = require("fs");
 const phantom = require("phantom");
 const Participant = require("../models/Participant");
-
+const MongoClient = require('mongodb').MongoClient;
 const mongoose = require("mongoose");
 const config = require("../settings/config");
 
@@ -223,12 +223,24 @@ mainRouter.post("/participants", function(req, res) {
 });
 
 mainRouter.get("/ttest", function(req, res) {
-	mongoose.Promise = require("bluebird");
-	mongoose
-		.connect(
-			config.dbUrl,
-			{ useNewUrlParser: true }
-		)
+	// mongoose.Promise = require("bluebird");
+	// mongoose
+	// 	.connect(
+	// 		config.dbUrl,
+	// 		{ useNewUrlParser: true }
+	// 	)
+	// 	.then(() => {
+	// 		// if all is ok we will be here
+	// 		console.log("here");
+	// 		return res.json({ok: "Db initialized"});
+	// 	})
+	// 	.catch(err => {
+	// 		// if error we will be here
+	// 		return res.json({ok: false, err: err});
+	// 		//process.exit(1);
+	// 	});
+
+	MongoClient.connect(config.dbUrl)
 		.then(() => {
 			// if all is ok we will be here
 			console.log("here");

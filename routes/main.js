@@ -269,7 +269,7 @@ mainRouter.get("/ttest", function(req, res) {
 
 		con.query(sql, function(err, result) {
 			if (err) return cb(500, { msg: "Internal server Error" }, null);
-			return cb(200, null, result);
+			return cb(200, null, JSON.stringify(result));
 		});
 	});
 });

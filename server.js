@@ -38,6 +38,11 @@ app.use(
 
 app.use(express.static(path.join(__dirname, "client/build")));
 app.use("/public", express.static(__dirname + "/public"));
+
+app.use(express.static(process.cwd() + "/public"));
+// serving routes
+const mainRouter = require("./routes/main");
+app.use("/main", mainRouter);
 /*app.get('/', (req, res) => {
     res.send('express server running');
 });*/
@@ -46,14 +51,6 @@ app.get("*", function(req, res) {
 	res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
-app.use(express.static(process.cwd() + "/public"));
-// serving routes
-const mainRouter = require("./routes/main");
-app.use("/main", mainRouter);
-
-app.use(function(req, res) {
-	res.status(404).send({ url: req.originalUrl + " not found" });
-});
 // run server
 app.listen(port);
 console.log(`NDC English Carnival listening on ${port}`);

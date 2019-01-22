@@ -4,6 +4,9 @@ const fs = require("fs");
 const phantom = require("phantom");
 const Participant = require("../models/Participant");
 
+const mongoose = require("mongoose");
+const config = require("../settings/config");
+
 const nodemailer = require("nodemailer");
 
 mainRouter.post("/participant", function(req, res) {
@@ -209,7 +212,6 @@ mainRouter.post("/event", function(req, res) {
 
 mainRouter.post("/participants", function(req, res) {
 	console.log(req.body);
-	return res.json({success: true, hell: "hell is here"});
 	//return res.json({ success: true });
 	Participant.getParticipant(req.body.page, (status, err, data) => {
 		if (status === 200) {
@@ -219,4 +221,24 @@ mainRouter.post("/participants", function(req, res) {
 		}
 	});
 });
+
+mainRouter.get("/ttest", function(req, res) {
+	mongoose.Promise = require("bluebird");
+	mongoose
+		.connect(
+			config.dbUrl,
+			{ useNewUrlParser: true }
+		)
+		.then(() => {
+			// if all is ok we will be here
+			console.log("here");
+			return res.json({ok: "Db initialized"});
+		})
+		.catch(err => {
+			// if error we will be here
+			return res.json({ok: false, err: err});
+			//process.exit(1);
+		});
+});
+
 module.exports = mainRouter;

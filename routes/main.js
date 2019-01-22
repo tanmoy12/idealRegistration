@@ -7,6 +7,8 @@ const MongoClient = require('mongodb').MongoClient;
 const mongoose = require("mongoose");
 const config = require("../settings/config");
 
+const mysql = require('mysql');
+
 const nodemailer = require("nodemailer");
 
 mainRouter.post("/participant", function(req, res) {
@@ -240,17 +242,31 @@ mainRouter.get("/ttest", function(req, res) {
 	// 		//process.exit(1);
 	// 	});
 
-	MongoClient.connect(config.dbUrl)
-		.then(() => {
-			// if all is ok we will be here
-			console.log("here");
-			return res.json({ok: "Db initialized"});
-		})
-		.catch(err => {
-			// if error we will be here
+	// MongoClient.connect(config.dbUrl)
+	// 	.then(() => {
+	// 		// if all is ok we will be here
+	// 		console.log("here");
+	// 		return res.json({ok: "Db initialized"});
+	// 	})
+	// 	.catch(err => {
+	// 		// if error we will be here
+	// 		return res.json({ok: false, err: err});
+	// 		//process.exit(1);
+	// 	});
+
+	let con = mysql.createConnection({
+		host: "localhost",
+		user: "headaubg_ndc",
+		password: "ndc1234",
+		database: "headaubg_ndc"
+	});
+	
+	con.connect(function(err) {
+		if (err) {
 			return res.json({ok: false, err: err});
-			//process.exit(1);
-		});
+		}
+		return res.json({ok: "Db initialized"});
+	});
 });
 
 module.exports = mainRouter;

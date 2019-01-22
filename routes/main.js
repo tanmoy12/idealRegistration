@@ -86,7 +86,7 @@ mainRouter.post("/event", function(req, res) {
 				"	</style>" +
 				"	</head>" +
 				'	<body style="background-image:url(background.jpg); max-width: 800px; height: 90%;">' +
-			//'<body style="background-image:url(background3.jpg); background-repeat: no-repeat; background-size: 100% 100%; ">' +
+				//'<body style="background-image:url(background3.jpg); background-repeat: no-repeat; background-size: 100% 100%; ">' +
 				'<div class="left-container" style="position: absolute; left: 0px; width: 400px">' +
 				"	<h1>5th NATIONAL</h1>" +
 				"	<h1>ENGLISH CARNIVAL</h1>" +
@@ -209,6 +209,7 @@ mainRouter.post("/event", function(req, res) {
 
 mainRouter.post("/participants", function(req, res) {
 	console.log(req.body);
+	return res.json({success: true, hell: "hell is here"});
 	//return res.json({ success: true });
 	Participant.getParticipant(req.body.page, (status, err, data) => {
 		if (status === 200) {

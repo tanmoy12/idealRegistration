@@ -9,10 +9,10 @@
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "engines": {
-    "node": "10.15.0"
+    "node": "8.14.1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Headless Technologies Limited",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",

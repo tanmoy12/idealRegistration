@@ -1,7 +1,7 @@
 {
   "name": "NDC-EnglishCarnival",
   "version": "1.0.0",
-  "description": "We print your imagination",
+  "description": "Event registration for 5thNEC",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "engines": {
-    "node": "8.11.1"
+    "node": "8.14.1"
   },
   "keywords": [],
   "author": "",

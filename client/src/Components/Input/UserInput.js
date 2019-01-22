@@ -68,6 +68,7 @@ class UserInput extends React.Component {
   };
   render() {
     const { classes } = this.props;
+    console.log("userinput");
     return (
       <div className={classes.root}>
         <FormHelperText

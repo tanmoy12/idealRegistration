@@ -3,7 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5002;
 const config = require("./settings/config");
 const app = express();
 // connect database
@@ -42,7 +42,7 @@ app.use("/public", express.static(__dirname + "/public"));
     res.send('express server running');
 });*/
 
-app.get("/", function(req, res) {
+app.get("*", function(req, res) {
 	res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 

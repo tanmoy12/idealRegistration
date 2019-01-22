@@ -11,7 +11,7 @@ const app = express();
 mongoose.Promise = require("bluebird");
 mongoose
 	.connect(
-		config.dbUrl2,
+		config.dbUrl,
 		{ useNewUrlParser: true }
 	)
 	.then(() => {

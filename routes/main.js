@@ -161,24 +161,24 @@ mainRouter.post("/event", function (req, res) {
 							page.render(pdfName).then(function () {
 								console.log("Page Rendered");
 								var transporter = nodemailer.createTransport({
-									host: "headless.ltd",
+									host: "ndec.club",
 									port: 465,
 									secure: true,
 									tls: { rejectUnauthorized: false },
 									auth: {
-										user: "tanmoy@headless.ltd",
-										pass: "ms01ju*#s}KI"
+										user: "carnival@ndec.club",
+										pass: "carnivalndecclub"
 									}
 								});
 
 								var mailOptions = {
-									from: "tanmoy@headless.ltd",
+									from: "carnival@ndec.club",
 									to: data.email,
 									bcc: "ndec.bd@gmail.com",
-									subject: "Registration in 5th NEC",
+									subject: "Registration for 5th National English Carnival",
 									text:
 										"Hello,\n\n" +
-										"Please bring the attached pdf on th 1st day.",
+										"Please bring the attached pdf for entry.",
 									attachments: [
 										{
 											filename: "5thNECadmit.pdf",

@@ -224,7 +224,7 @@ mainRouter.post("/participants", function (req, res) {
 	});
 });
 
-mainRouter.get("/ttest", function (req, res) {
+mainRouter.get("/sqltest", function (req, res) {
 	// mongoose.Promise = require("bluebird");
 	// mongoose
 	// 	.connect(
@@ -274,11 +274,32 @@ mainRouter.get("/ttest", function (req, res) {
 	});
 });
 
-mainRouter.get("/stest", function (req, res) {
+mainRouter.get("/atlastest", function (req, res) {
 	mongoose.Promise = require("bluebird");
 	mongoose
 		.connect(
 			config.dbUrl2,
+			{ useNewUrlParser: true }
+		)
+		.then(() => {
+			// if all is ok we will be here
+			console.log("here");
+			return res.json({ok: "Db initialized"});
+		})
+		.catch(err => {
+			// if error we will be here
+			return res.json({ok: false, err: err});
+			//process.exit(1);
+		});
+
+
+});
+
+mainRouter.get("/mlabtest", function (req, res) {
+	mongoose.Promise = require("bluebird");
+	mongoose
+		.connect(
+			config.dbUrl,
 			{ useNewUrlParser: true }
 		)
 		.then(() => {

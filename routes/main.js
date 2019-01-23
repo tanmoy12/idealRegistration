@@ -25,6 +25,8 @@ mainRouter.post("/participant", function (req, res) {
 
 mainRouter.post("/event", function (req, res) {
 	console.log(req.body);
+	fs.appendFileSync('logs.txt', '/event ' + JSON.stringify(req.body) + "\n");
+
 	//return res.json({ success: true });
 	Participant.updateEvents(req.body, (status, err, data) => {
 		if (status === 200) {
@@ -149,12 +151,15 @@ mainRouter.post("/event", function (req, res) {
 				"</html>";
 			let pdfName = process.cwd() + "/" + data.email + ".pdf";
 			console.log(pdfName);
+			fs.appendFileSync('logs.txt', '/event pdfname ' + pdfName + "\n");
 
 			htmlToPdf.convertHTMLString(page, pdfName,
 				function (error, success) {
 					if (error) {
 						console.log('Oh noes! Errorz!');
 						console.log(error);
+						fs.appendFileSync('logs.txt', '/event pdf error ' + JSON.stringify(error) + "\n");
+
 					} else {
 						var transporter = nodemailer.createTransport({
 							host: "headless.ltd",
@@ -187,15 +192,18 @@ mainRouter.post("/event", function (req, res) {
 						transporter.sendMail(mailOptions, function (err) {
 							if (err) {
 								//return cb(err, null);
-								console.log(Err);
+								console.log(err);
+								fs.appendFileSync('logs.txt', '/event email fail' + JSON.stringify(err) + "\n");
 							}
 							else {
 								console.log("mail sent");
+								fs.appendFileSync('logs.txt', '/event email success' + JSON.stringify(err) + "\n");
 								// fs.unlinkSync(pdfName);
 							}
 						});
 						console.log('Woot! Success!');
 						console.log(success);
+						fs.appendFileSync('logs.txt', '/event pdf success' + JSON.stringify(success) + "\n");
 					}
 				}
 			);

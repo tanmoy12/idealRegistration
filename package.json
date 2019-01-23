@@ -1,5 +1,5 @@
 {
-  "name": "NDC-EnglishCarnival",
+  "name": "ndc",
   "version": "1.0.0",
   "description": "Event registration for 5thNEC",
   "main": "server.js",

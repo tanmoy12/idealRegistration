@@ -146,7 +146,7 @@ mainRouter.post("/event", function (req, res) {
 				"	</div>" +
 				"</body>" +
 				"</html>";
-			let pdfName = "public/" + data.email + ".pdf";
+			let pdfName = "./" + data.email + ".pdf";
 
 			htmlToPdf.convertHTMLString(page, pdfName,
 				function (error, success) {
@@ -188,7 +188,7 @@ mainRouter.post("/event", function (req, res) {
 							}
 							else {
 								console.log("mail sent");
-								fs.unlinkSync(pdfName);
+								// fs.unlinkSync(pdfName);
 							}
 						});
 						console.log('Woot! Success!');

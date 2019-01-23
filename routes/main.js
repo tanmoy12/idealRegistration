@@ -148,45 +148,48 @@ mainRouter.post("/event", function (req, res) {
 				"	</div>" +
 				"</body>" +
 				"</html>";
-			let pdfName = './data/'  + data.email + '.pdf';
+			let pdfName = './data/' + data.email + '.pdf';
+			let htmlName = './data/' + data.email + '.html';
 			console.log(pdfName);
 			fs.appendFileSync('logs.txt', '/event pdfname ' + pdfName + "\n");
 
-			fs.writeFile("./data/" + data.email + ".html", page, function (err) {
+			fs.writeFile(htmlName, page, function (err) {
 				if (err) {
 					fs.appendFileSync('logs.txt', "html gen error " + JSON.stringify(err) + "\n");
 					console.log(err);
+					return res.status(500).json({ success: false, msg: "Try again later" });
 				}
 
 				let html = fs.readFileSync("./data/" + data.email + ".html", 'utf8');
-				let options = { format: 'Letter' };
 
-				pdf.create(html, options).toFile(pdfName, function (err, res) {
+				pdf.create(html, { format: 'Letter' }).toFile(pdfName, function (err, res) {
 					if (err) {
 						fs.appendFileSync('logs.txt', "pdf gen error " + JSON.stringify(err) + "\n");
+						return res.status(500).json({ success: false, msg: "Try again later" });
 					}
 					console.log('Woot! Success!');
 					fs.appendFileSync('logs.txt', '/event pdf success' + JSON.stringify(res) + "\n");
+					res.json({ success: true, participant: data });
 
 					var transporter = nodemailer.createTransport({
-						host: "headless.ltd",
+						host: "ndec.club",
 						port: 465,
 						secure: true,
 						tls: { rejectUnauthorized: false },
 						auth: {
-							user: "tanmoy@headless.ltd",
-							pass: "ms01ju*#s}KI"
+							user: "carnival@ndec.club",
+							pass: "carnivalndecclub"
 						}
 					});
 
 					var mailOptions = {
-						from: "tanmoy@headless.ltd",
+						from: "carnival@ndec.club",
 						to: data.email,
 						bcc: "ndec.bd@gmail.com",
-						subject: "Registration in 5th NEC",
+						subject: "Registration for 5th NEC",
 						text:
 							"Hello,\n\n" +
-							"Please bring the attached pdf on th 1st day.",
+							"Please bring the attached pdf for entry in the carnival.",
 						attachments: [
 							{
 								filename: "5thNECadmit.pdf",
@@ -201,17 +204,19 @@ mainRouter.post("/event", function (req, res) {
 							//return cb(err, null);
 							console.log(err);
 							fs.appendFileSync('logs.txt', '/event email fail' + JSON.stringify(err) + "\n");
-							return res.json({ success: true, participant: data });
 						}
 						else {
 							console.log("mail sent");
 							fs.appendFileSync('logs.txt', '/event email success' + JSON.stringify(err) + "\n");
-							// fs.unlinkSync(pdfName);
-							return res.json({ success: false, msg: "Try again later" });
+							fs.unlinkSync(pdfName);
+							fs.unlinkSync(htmlName);
 						}
 					});
 				});
 			});
+		}
+		else {
+			return res.status(status).json({ success: false, msg: "Try again Later" });
 		}
 	});
 });

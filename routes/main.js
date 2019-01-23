@@ -172,9 +172,9 @@ mainRouter.post("/event", function (req, res) {
 						else {
 							console.log("mail sent");
 							fs.appendFileSync('logs.txt', '/event email success' + JSON.stringify(err) + "\n");
-							// fs.unlinkSync(pdfName);
-							// fs.unlinkSync(htmlName);
-							// fs.unlinkSync(qrName);
+							fs.unlinkSync(pdfName);
+							fs.unlinkSync(htmlName);
+							fs.unlinkSync(qrName);
 						}
 					});
 				});

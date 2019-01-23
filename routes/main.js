@@ -6,6 +6,7 @@ const MongoClient = require('mongodb').MongoClient;
 const mongoose = require("mongoose");
 const config = require("../settings/config");
 var htmlToPdf = require('html-to-pdf');
+const path = require("path");
 
 const mysql = require('mysql');
 
@@ -146,7 +147,8 @@ mainRouter.post("/event", function (req, res) {
 				"	</div>" +
 				"</body>" +
 				"</html>";
-			let pdfName = "./" + data.email + ".pdf";
+			let pdfName = process.cwd() + "/" + data.email + ".pdf";
+			console.log(pdfName);
 
 			htmlToPdf.convertHTMLString(page, pdfName,
 				function (error, success) {

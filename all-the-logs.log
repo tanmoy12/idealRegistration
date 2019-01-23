@@ -38,3 +38,19 @@
 [2019-01-23T18:56:32.288] [DEBUG] default - pdf name /home/anjan/headless/5thNECregistration/tanmoy@headless.ltd.pdf
 [2019-01-23T18:56:35.649] [DEBUG] default - pdf success
 [2019-01-23T18:56:35.660] [DEBUG] default - email success
+[2019-01-23T19:15:20.381] [DEBUG] default - hellooooooo paticipant {}
+[2019-01-23T19:16:22.218] [DEBUG] default - hellooooooo paticipant { name: 'Hulo', email: 'hulo@gmail.com', level: 'primary' }
+[2019-01-23T19:16:30.919] [DEBUG] default - hellooooooo paticipant { name: 'Hulo',
+  email: 'hulo@gmail.com',
+  level: 'primary',
+  contact: '011' }
+[2019-01-23T19:16:41.029] [DEBUG] default - hellooooooo paticipant { name: 'Hulo',
+  email: 'hulo@gmail.com',
+  level: 'primary',
+  contact: '011',
+  institution: 'buet' }
+[2019-01-23T19:26:29.996] [DEBUG] default - hellooooooo paticipant { name: 'Hulo',
+  email: 'hulo@gmail.com',
+  level: 'primary',
+  contact: '011',
+  institution: 'buet' }

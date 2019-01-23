@@ -37,6 +37,7 @@ mainRouter.post("/participant", function (req, res) {
 		}
 	});
 });
+
 mainRouter.post("/event", function (req, res) {
 	console.log(req.body);
 	logger.debug("got event", req.body);

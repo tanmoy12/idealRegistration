@@ -11,13 +11,13 @@ const nodemailer = require("nodemailer");
 mainRouter.post("/participant", function (req, res) {
 	console.log(req.body);
 
-	fs.appendFileSync('logs.txt', '/particiapant ' + JSON.stringify(req.body));
+	fs.appendFileSync('logs.txt', '/particiapant ' + JSON.stringify(req.body) + "\n");
 	Participant.insertNewParticipant(req.body, (status, err, data) => {
 		if (status === 200) {
-			fs.appendFileSync('logs.txt', 'participant insert success');
+			fs.appendFileSync('logs.txt', 'participant insert success' + "\n");
 			return res.json({ success: true, participant: data });
 		} else {
-			fs.appendFileSync('logs.txt', 'participant insert fail' + err);
+			fs.appendFileSync('logs.txt', 'participant insert fail in route' + JSON.stringify(err) + "\n");
 			return res.json({ success: false, err: err });
 		}
 	});

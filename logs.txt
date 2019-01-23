@@ -1,3 +1,4 @@
 logs: 
 
-/particiapant {"name":"Hulo","email":"hulo@gmail.com","level":"primary","contact":"011","institution":"buet"}
+/particiapant {"name":"Hulo","email":"hulo@gmail.com","level":"primary","contact":"011","institution":"buet"}/particiapant {"name":"Hulo","email":"hulo@gmail.com","level":"primary","contact":"011","institution":"buet"}participant insert fail[object Object]/particiapant {"name":"Hulo","email":"hulo@gmail.com","level":"primary","contact":"011","institution":"buet"}
+participant insert fail in route[object Object]

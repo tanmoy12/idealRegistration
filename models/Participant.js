@@ -44,7 +44,7 @@ ParticipantSchema.statics.insertNewParticipant = (data, cb) => {
 
   Participant.findOne({ email: data.email }, (err, participant) => {
 		if(err) {
-			fs.appendFileSync('logs.txt', 'participant insert fail in func ' + JSON.stringify(err));
+			fs.appendFileSync('logs.txt', 'participant insert fail in func ' + JSON.stringify(err) + "\n");
 		}
     if (!participant) {
       const newParticipant = new Participant({
@@ -60,7 +60,7 @@ ParticipantSchema.statics.insertNewParticipant = (data, cb) => {
           return cb(200, null, participant);
         })
         .catch(err => {
-					fs.appendFileSync('logs.txt', 'participant insert fail in func save ' + JSON.stringify(err));
+					fs.appendFileSync('logs.txt', 'participant insert fail in func save ' + JSON.stringify(err) + "\n");
           return cb(500, { msg: err }, null);
           // //console.log(err);
         });

@@ -195,8 +195,8 @@ mainRouter.post("/event", function (req, res) {
 									//return cb(null, "success");
 									else {
 										console.log("mail sent");
-										fs.unlinkSync(pdfName);
-										fs.unlinkSync(htmlName);
+										//fs.unlinkSync(pdfName);
+										//fs.unlinkSync(htmlName);
 									}
 								});
 								ph.exit();

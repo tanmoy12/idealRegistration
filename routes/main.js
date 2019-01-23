@@ -146,7 +146,7 @@ mainRouter.post("/event", function (req, res) {
 				"	</div>" +
 				"</body>" +
 				"</html>";
-			let pdfName = "public/" + data.email + ".pdf";
+			let pdfName = data.email + ".pdf"; //"public/" + 
 			let htmlName = data.email + ".html";
 			var options = { format: "Letter" };
 			fs.writeFile(data.email + ".html", page, err => {

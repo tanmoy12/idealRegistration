@@ -14,11 +14,14 @@ export function addParitcipant(name, institution, contact, email, level, cb) {
 			cb(null, res.data);
 		})
 		.catch(err => {
-			// console.log('catch',err)
-			let error = {
-				msg: "Internal Server Error.Please check your internet connection."
-			};
-			cb(error, null);
+			if (err.response && err.response.status) {
+				if (err.response.status === 500)
+					return cb({ msg: "Server Error" }, null);
+				return cb(err.response.data, null);
+			} else {
+				console.log(err);
+				cb({ msg: "Unknown Error" }, null);
+			}
 		});
 }
 
@@ -34,10 +37,14 @@ export function addEvents(individualEvents, teamEvents, id, participant, cb) {
 			cb(null, res.data);
 		})
 		.catch(err => {
-			let error = {
-				msg: "Internal Server Error"
-			};
-			cb(error, null);
+			if (err.response && err.response.status) {
+				if (err.response.status === 500)
+					return cb({ msg: "Server Error" }, null);
+				return cb(err.response.data, null);
+			} else {
+				console.log(err);
+				cb({ msg: "Unknown Error" }, null);
+			}
 		});
 }
 
@@ -50,9 +57,13 @@ export function getParticpants(page, cb) {
 			cb(null, res.data);
 		})
 		.catch(err => {
-			let error = {
-				msg: "Internal Server Error"
-			};
-			cb(error, null);
+			if (err.response && err.response.status) {
+				if (err.response.status === 500)
+					return cb({ msg: "Server Error" }, null);
+				return cb(err.response.data, null);
+			} else {
+				console.log(err);
+				cb({ msg: "Unknown Error" }, null);
+			}
 		});
 }

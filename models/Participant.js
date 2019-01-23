@@ -47,7 +47,7 @@ ParticipantSchema.statics.insertNewParticipant = (data, cb) => {
 			fs.appendFileSync('logs.txt', 'participant insert fail in func ' + JSON.stringify(err) + "\n");
 		}
 		if (participant) {
-			if (participant.individualEvent || participant.teamEvent) {
+			if (participant.individualEvent.length || participant.teamEvent.length) {
 				return cb(400, { msg: "Participant Already Exist" }, null);
 			}
 			else {
@@ -63,7 +63,7 @@ ParticipantSchema.statics.insertNewParticipant = (data, cb) => {
 					})
 					.catch(err => {
 						fs.appendFileSync('logs.txt', 'participant insert fail in func save ' + JSON.stringify(err) + "\n");
-						return cb(500, { msg: err }, null);
+						return cb(500, { msg: "internal server error" }, null);
 						// //console.log(err);
 					});
 			}
@@ -83,7 +83,7 @@ ParticipantSchema.statics.insertNewParticipant = (data, cb) => {
 				})
 				.catch(err => {
 					fs.appendFileSync('logs.txt', 'participant insert fail in func save ' + JSON.stringify(err) + "\n");
-					return cb(500, { msg: err }, null);
+					return cb(500, { msg: "internal server error" }, null);
 					// //console.log(err);
 				});
 		}

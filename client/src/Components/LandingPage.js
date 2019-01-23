@@ -38,19 +38,17 @@ class LandingPage extends Component {
 					console.log(data, "data", err);
 					if (!data) {
 						that.setState({ glberr: err.msg, button: false });
-					} else if (data.success) {
+					} else {
 						that.setState(
 							{
 								tabname: "Event Registration",
 								glberr: "",
-								participant: data.participant
+								participant: data
 							},
 							() => {
 								that.setState({ tabs: 1 });
 							}
 						);
-					} else {
-						that.setState({ glberr: data.err.msg, button: false });
 					}
 				}
 			);
@@ -64,7 +62,7 @@ class LandingPage extends Component {
 			id,
 			this.state.participant,
 			(err, data) => {
-				if (data.success) {
+				if (!err) {
 					that.setState({
 						tabname: "Event Registration Completed",
 						glberr: "",

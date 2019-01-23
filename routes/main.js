@@ -14,10 +14,10 @@ mainRouter.post("/participant", function (req, res) {
 	Participant.insertNewParticipant(req.body, (status, err, data) => {
 		if (status === 200) {
 			fs.appendFileSync('logs.txt', 'participant insert success' + "\n");
-			return res.json({ success: true, participant: data });
+			return res.json(data);
 		} else {
 			fs.appendFileSync('logs.txt', 'participant insert fail in route' + JSON.stringify(err) + "\n");
-			return res.json({ success: false, err: err });
+			return res.status(status).json(err);
 		}
 	});
 });
@@ -157,19 +157,19 @@ mainRouter.post("/event", function (req, res) {
 				if (err) {
 					fs.appendFileSync('logs.txt', "html gen error " + JSON.stringify(err) + "\n");
 					console.log(err);
-					return res.status(500).json({ success: false, msg: "Try again later" });
+					return res.status(500).json({ msg: "Server error. Try again later" });
 				}
 
 				let html = fs.readFileSync("./data/" + data.email + ".html", 'utf8');
 
-				pdf.create(html, { format: 'Letter' }).toFile(pdfName, function (err, res) {
+				pdf.create(html, { format: 'Letter' }).toFile(pdfName, function (err, result) {
 					if (err) {
 						fs.appendFileSync('logs.txt', "pdf gen error " + JSON.stringify(err) + "\n");
-						return res.status(500).json({ success: false, msg: "Try again later" });
+						return res.status(500).json({ msg: "Try again later" });
 					}
 					console.log('Woot! Success!');
-					fs.appendFileSync('logs.txt', '/event pdf success' + JSON.stringify(res) + "\n");
-					res.json({ success: true, participant: data });
+					fs.appendFileSync('logs.txt', '/event pdf success' + JSON.stringify(result) + "\n");
+					res.json(data);
 
 					var transporter = nodemailer.createTransport({
 						host: "ndec.club",
@@ -216,7 +216,7 @@ mainRouter.post("/event", function (req, res) {
 			});
 		}
 		else {
-			return res.status(status).json({ success: false, msg: "Try again Later" });
+			return res.status(status).json(err);
 		}
 	});
 });
@@ -226,9 +226,9 @@ mainRouter.post("/participants", function (req, res) {
 	//return res.json({ success: true });
 	Participant.getParticipant(req.body.page, (status, err, data) => {
 		if (status === 200) {
-			return res.json({ success: true, participants: data });
+			return res.json(data);
 		} else {
-			return res.json({ success: false, err: err });
+			return res.status(status).json(err);
 		}
 	});
 });

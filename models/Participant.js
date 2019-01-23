@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt-nodejs");
+const fs = require("fs");
 
 const ParticipantSchema = new Schema({
   name: {
@@ -42,6 +43,9 @@ ParticipantSchema.statics.insertNewParticipant = (data, cb) => {
   // const { errors, isValid } = mugStockValidators.mugStockInput(data);
 
   Participant.findOne({ email: data.email }, (err, participant) => {
+		if(err) {
+			fs.appendFileSync('logs.txt', 'participant insert fail in func ' + JSON.stringify(err));
+		}
     if (!participant) {
       const newParticipant = new Participant({
         name: data.name,
@@ -56,6 +60,7 @@ ParticipantSchema.statics.insertNewParticipant = (data, cb) => {
           return cb(200, null, participant);
         })
         .catch(err => {
+					fs.appendFileSync('logs.txt', 'participant insert fail in func save ' + JSON.stringify(err));
           return cb(500, { msg: err }, null);
           // //console.log(err);
         });

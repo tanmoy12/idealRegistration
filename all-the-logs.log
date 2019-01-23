@@ -1,0 +1,40 @@
+[2019-01-23T18:53:25.747] [DEBUG] default - hellooooooo paticipant { name: 'asd',
+  institution: 'BUET',
+  contact: '111',
+  email: 'asd@d.com',
+  level: 'Primary' }
+[2019-01-23T18:55:53.876] [DEBUG] default - hellooooooo paticipant { name: 'anik',
+  institution: 'BUET',
+  contact: '011',
+  email: 'anik.cse319@gmail.com',
+  level: 'University' }
+[2019-01-23T18:56:06.569] [DEBUG] default - hellooooooo paticipant { name: 'anik',
+  institution: 'BUET',
+  contact: '011',
+  email: 'tanmoy.bk12@gmail.com',
+  level: 'University' }
+[2019-01-23T18:56:21.968] [DEBUG] default - hellooooooo paticipant { name: 'anik',
+  institution: 'BUET',
+  contact: '011',
+  email: 'tanmoy@headless.ltd',
+  level: 'University' }
+[2019-01-23T18:56:31.838] [DEBUG] default - got event { teamEvents: [ { event_name: 'Lit Quiz', team_name: 'hulo' } ],
+  individualEvents:
+   [ 'English Olympiad',
+     'Instant Story Writting',
+     'Composition Submission' ],
+  id: '5c48647631a2d14a0e336656',
+  participant:
+   { individualEvent: [],
+     teamEvent: [],
+     _id: '5c48647631a2d14a0e336656',
+     name: 'anik',
+     contact: '011',
+     institution: 'BUET',
+     email: 'tanmoy@headless.ltd',
+     level: 'University',
+     createdAt: '2019-01-23T12:56:22.416Z',
+     __v: 0 } }
+[2019-01-23T18:56:32.288] [DEBUG] default - pdf name /home/anjan/headless/5thNECregistration/tanmoy@headless.ltd.pdf
+[2019-01-23T18:56:35.649] [DEBUG] default - pdf success
+[2019-01-23T18:56:35.660] [DEBUG] default - email success

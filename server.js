@@ -12,7 +12,7 @@ mongoose.Promise = require("bluebird");
 mongoose
 	.connect(
 		config.dbUrl,
-		{ useNewUrlParser: true }
+		{ useNewUrlParser: true, useFindAndModify: false }
 	)
 	.then(() => {
 		// if all is ok we will be here

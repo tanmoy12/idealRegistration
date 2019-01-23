@@ -12,9 +12,23 @@ const mysql = require('mysql');
 
 const nodemailer = require("nodemailer");
 
+const log4js = require("log4js");
+
+log4js.configure({
+	appenders: {
+		everything: { type: 'file', filename: 'all-the-logs.log' }
+	},
+	categories: {
+		default: { appenders: ['everything'], level: 'debug' }
+	}
+});
+
+const logger = log4js.getLogger();
+// logger.debug('I will be logged in all-the-logs.log');
+
 mainRouter.post("/participant", function (req, res) {
 	console.log(req.body);
-
+	logger.debug("hellooooooo paticipant", req.body);
 	Participant.insertNewParticipant(req.body, (status, err, data) => {
 		if (status === 200) {
 			return res.json({ success: true, participant: data });
@@ -25,6 +39,7 @@ mainRouter.post("/participant", function (req, res) {
 });
 mainRouter.post("/event", function (req, res) {
 	console.log(req.body);
+	logger.debug("got event", req.body);
 	//return res.json({ success: true });
 	Participant.updateEvents(req.body, (status, err, data) => {
 		if (status === 200) {
@@ -149,13 +164,16 @@ mainRouter.post("/event", function (req, res) {
 				"</html>";
 			let pdfName = process.cwd() + "/" + data.email + ".pdf";
 			console.log(pdfName);
+			logger.debug("pdf name", pdfName);
 
 			htmlToPdf.convertHTMLString(page, pdfName,
 				function (error, success) {
 					if (error) {
 						console.log('Oh noes! Errorz!');
+						logger.debug("pdf making error", error);
 						console.log(error);
 					} else {
+						logger.debug("pdf success");
 						var transporter = nodemailer.createTransport({
 							host: "headless.ltd",
 							port: 465,
@@ -187,6 +205,8 @@ mainRouter.post("/event", function (req, res) {
 						transporter.sendMail(mailOptions, function (err) {
 							if (err) {
 								//return cb(err, null);
+								logger.debug("email error", err);
+								console.log(Err);
 							}
 							else {
 								console.log("mail sent");
@@ -194,6 +214,7 @@ mainRouter.post("/event", function (req, res) {
 							}
 						});
 						console.log('Woot! Success!');
+						logger.debug("email success");
 						console.log(success);
 					}
 				}

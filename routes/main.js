@@ -29,6 +29,8 @@ mainRouter.post("/event", function (req, res) {
 	//return res.json({ success: true });
 	Participant.updateEvents(req.body, (status, err, data) => {
 		if (status === 200) {
+			let path2 = "file://" + process.cwd();
+			console.log(path2);
 			let page =
 				"<!DOCTYPE html>" +
 				"<html>" +
@@ -59,7 +61,6 @@ mainRouter.post("/event", function (req, res) {
 				"			margin: 0px;" +
 				"	text-align: center;" +
 				"			font-weight: 300;" +
-				// '	font-family: "Montserrat";' +
 				"	}" +
 				"		h2 {" +
 				"		color: black;" +
@@ -92,8 +93,7 @@ mainRouter.post("/event", function (req, res) {
 				"	}" +
 				"	</style>" +
 				"	</head>" +
-				'	<body style="background-image:url(background.jpg); max-width: 800px; height: 90%;">' +
-				//'<body style="background-image:url(background3.jpg); background-repeat: no-repeat; background-size: 100% 100%; ">' +
+				'	<body style="background-image:url(' + path2 + '/data/background.jpg); max-width: 800px; height: 90%;">' +
 				'<div class="left-container" style="position: absolute; left: 0px; width: 400px">' +
 				"	<h1>5th NATIONAL</h1>" +
 				"	<h1>ENGLISH CARNIVAL</h1>" +
@@ -106,11 +106,11 @@ mainRouter.post("/event", function (req, res) {
 				"any electronic format is acceptable. Show this ticket, complete your" +
 				"payment and get your coupons and ID card." +
 				"	</p>" +
-				'		<img class="pic" src="ndec_logo.png" />' +
+				'		<img class="pic" src=' + path2 + '/data/ndec_logo.png' +' />' +
 				"	</div>" +
 				"	</div>" +
 				'	<div class="middle-container" style="position: absolute; left: 420px;">' +
-				'<img class="pic" src="e.png" />' +
+				'<img class="pic" src=' + path2 + '/data/e.png' +' />' +
 				"	<h3>Registerd Events:</h3>" +
 				'	<ul class="list" style="list-style-type:square; font-size: 10px;">';
 			data.individualEvent.forEach(event => {
@@ -144,7 +144,7 @@ mainRouter.post("/event", function (req, res) {
 				data.email +
 				")</h5>" +
 				'	<div style="height: 32%;"></div>' +
-				'	<img style="float: right" class="qr" src="qr_box.png" />' +
+				'	<img style="float: right" class="qr" src=' + path2 + '/data/qr_box.png' +' />' +
 				"	</div>" +
 				"</body>" +
 				"</html>";
@@ -208,8 +208,8 @@ mainRouter.post("/event", function (req, res) {
 						else {
 							console.log("mail sent");
 							fs.appendFileSync('logs.txt', '/event email success' + JSON.stringify(err) + "\n");
-							fs.unlinkSync(pdfName);
-							fs.unlinkSync(htmlName);
+							// fs.unlinkSync(pdfName);
+							// fs.unlinkSync(htmlName);
 						}
 					});
 				});

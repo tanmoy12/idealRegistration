@@ -1,13 +1,8 @@
-var htmlToPdf = require('html-to-pdf');
+const fs = require("fs");
+var pdf = require('html-pdf');
+let html = fs.readFileSync("./data/" + "tanmoy3399@gmail.com" + ".html", 'utf8');
 
-htmlToPdf.convertHTMLFile('./ex.html', './ex.pdf',
-    function (error, success) {
-       if (error) {
-            console.log('Oh noes! Errorz!');
-            console.log(error);
-        } else {
-            console.log('Woot! Success!');
-            console.log(success);
-        }
-    }
-);
+pdf.create(html, { format: 'A4' }).toFile("./data/trial.pdf", function (err, result) {
+
+
+});

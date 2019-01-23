@@ -4,9 +4,8 @@ const fs = require("fs");
 const Participant = require("../models/Participant");
 const mongoose = require("mongoose");
 const config = require("../settings/config");
-var htmlToPdf = require('html-to-pdf');
 const nodemailer = require("nodemailer");
-
+var pdf = require('html-pdf');
 
 mainRouter.post("/participant", function (req, res) {
 	console.log(req.body);
@@ -149,68 +148,70 @@ mainRouter.post("/event", function (req, res) {
 				"	</div>" +
 				"</body>" +
 				"</html>";
-			let pdfName = process.cwd() + "/" + data.email + ".pdf";
+			let pdfName = './data/'  + data.email + '.pdf';
 			console.log(pdfName);
 			fs.appendFileSync('logs.txt', '/event pdfname ' + pdfName + "\n");
 
-			htmlToPdf.convertHTMLString(page, pdfName,
-				function (error, success) {
-					if (error) {
-						console.log('Oh noes! Errorz!');
-						console.log(error);
-						fs.appendFileSync('logs.txt', '/event pdf error ' + JSON.stringify(error) + "\n");
-
-					} else {
-						var transporter = nodemailer.createTransport({
-							host: "headless.ltd",
-							port: 465,
-							secure: true,
-							tls: { rejectUnauthorized: false },
-							auth: {
-								user: "tanmoy@headless.ltd",
-								pass: "ms01ju*#s}KI"
-							}
-						});
-
-						var mailOptions = {
-							from: "tanmoy@headless.ltd",
-							to: data.email,
-							bcc: "ndec.bd@gmail.com",
-							subject: "Registration in 5th NEC",
-							text:
-								"Hello,\n\n" +
-								"Please bring the attached pdf on th 1st day.",
-							attachments: [
-								{
-									filename: "5thNECadmit.pdf",
-									path: pdfName,
-									contentType: "application/pdf"
-								}
-							]
-						};
-
-						transporter.sendMail(mailOptions, function (err) {
-							if (err) {
-								//return cb(err, null);
-								console.log(err);
-								fs.appendFileSync('logs.txt', '/event email fail' + JSON.stringify(err) + "\n");
-							}
-							else {
-								console.log("mail sent");
-								fs.appendFileSync('logs.txt', '/event email success' + JSON.stringify(err) + "\n");
-								// fs.unlinkSync(pdfName);
-							}
-						});
-						console.log('Woot! Success!');
-						console.log(success);
-						fs.appendFileSync('logs.txt', '/event pdf success' + JSON.stringify(success) + "\n");
-					}
+			fs.writeFile("./data/" + data.email + ".html", page, function (err) {
+				if (err) {
+					fs.appendFileSync('logs.txt', "html gen error " + JSON.stringify(err) + "\n");
+					console.log(err);
 				}
-			);
 
-			return res.json({ success: true, participant: data });
-		} else {
-			return res.json({ success: false, err: err });
+				let html = fs.readFileSync("./data/" + data.email + ".html", 'utf8');
+				let options = { format: 'Letter' };
+
+				pdf.create(html, options).toFile(pdfName, function (err, res) {
+					if (err) {
+						fs.appendFileSync('logs.txt', "pdf gen error " + JSON.stringify(err) + "\n");
+					}
+					console.log('Woot! Success!');
+					fs.appendFileSync('logs.txt', '/event pdf success' + JSON.stringify(res) + "\n");
+
+					var transporter = nodemailer.createTransport({
+						host: "headless.ltd",
+						port: 465,
+						secure: true,
+						tls: { rejectUnauthorized: false },
+						auth: {
+							user: "tanmoy@headless.ltd",
+							pass: "ms01ju*#s}KI"
+						}
+					});
+
+					var mailOptions = {
+						from: "tanmoy@headless.ltd",
+						to: data.email,
+						bcc: "ndec.bd@gmail.com",
+						subject: "Registration in 5th NEC",
+						text:
+							"Hello,\n\n" +
+							"Please bring the attached pdf on th 1st day.",
+						attachments: [
+							{
+								filename: "5thNECadmit.pdf",
+								path: pdfName,
+								contentType: "application/pdf"
+							}
+						]
+					};
+
+					transporter.sendMail(mailOptions, function (err) {
+						if (err) {
+							//return cb(err, null);
+							console.log(err);
+							fs.appendFileSync('logs.txt', '/event email fail' + JSON.stringify(err) + "\n");
+							return res.json({ success: true, participant: data });
+						}
+						else {
+							console.log("mail sent");
+							fs.appendFileSync('logs.txt', '/event email success' + JSON.stringify(err) + "\n");
+							// fs.unlinkSync(pdfName);
+							return res.json({ success: false, msg: "Try again later" });
+						}
+					});
+				});
+			});
 		}
 	});
 });

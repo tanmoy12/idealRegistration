@@ -19,7 +19,7 @@
     "bcrypt-nodejs": "0.0.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "html-to-pdf": "^0.1.11",
+    "html-pdf": "^2.2.0",
     "mongoose": "^5.4.5",
     "nodemailer": "^5.1.1"
   }

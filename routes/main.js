@@ -104,7 +104,7 @@ mainRouter.post("/event", function (req, res) {
 				+ '</div>'
 				+ '<div style="position: absolute; top: 765px; left: 235px">'
 				+ '<h6 style="text-align: center; margin: 10px">Powered by </h6>'
-				+ '<img style="text-align: center; height: 30px;width: auto" src="file:///home/anjan/headless/5thNECregistration/data/headlessLogo.png"/>'
+				+ '<img style="text-align: center; height: 30px;width: auto" src="' + dataPath + 'headlessLogo.png"/>'
 				+ '</div>'
 				+ '</body>'
 

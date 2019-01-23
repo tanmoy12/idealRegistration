@@ -1,11 +1,11 @@
 const express = require("express");
 const mainRouter = express.Router();
 const fs = require("fs");
-const phantom = require("phantom");
 const Participant = require("../models/Participant");
 const MongoClient = require('mongodb').MongoClient;
 const mongoose = require("mongoose");
 const config = require("../settings/config");
+var htmlToPdf = require('html-to-pdf');
 
 const mysql = require('mysql');
 
@@ -147,64 +147,58 @@ mainRouter.post("/event", function (req, res) {
 				"</body>" +
 				"</html>";
 			let pdfName = "public/" + data.email + ".pdf";
-			let htmlName = data.email + ".html";
-			var options = { format: "Letter" };
-			fs.writeFile(data.email + ".html", page, err => {
-				if (err) {
-					console.log("error here");
-				}
-				console.log("The file has been saved!");
 
-				phantom.create().then(function (ph) {
-					ph.createPage().then(function (page) {
-						page.open(data.email + ".html").then(function (status) {
-							page.render(pdfName).then(function () {
-								console.log("Page Rendered");
-								var transporter = nodemailer.createTransport({
-									host: "headless.ltd",
-									port: 465,
-									secure: true,
-									tls: { rejectUnauthorized: false },
-									auth: {
-										user: "tanmoy@headless.ltd",
-										pass: "ms01ju*#s}KI"
-									}
-								});
-
-								var mailOptions = {
-									from: "tanmoy@headless.ltd",
-									to: data.email,
-									bcc: "ndec.bd@gmail.com",
-									subject: "Registration in 5th NEC",
-									text:
-										"Hello,\n\n" +
-										"Please bring the attached pdf on th 1st day.",
-									attachments: [
-										{
-											filename: "5thNECadmit.pdf",
-											path: pdfName,
-											contentType: "application/pdf"
-										}
-									]
-								};
-
-								transporter.sendMail(mailOptions, function (err) {
-									if (err) {
-										//return cb(err, null);
-									}
-									//return cb(null, "success");
-									else {
-										console.log("mail sent");
-										fs.unlinkSync(pdfName);
-										fs.unlinkSync(htmlName);
-									}
-								});
-								ph.exit();
-							});
+			htmlToPdf.convertHTMLString(page, pdfName,
+				function (error, success) {
+					if (error) {
+						console.log('Oh noes! Errorz!');
+						console.log(error);
+					} else {
+						var transporter = nodemailer.createTransport({
+							host: "headless.ltd",
+							port: 465,
+							secure: true,
+							tls: { rejectUnauthorized: false },
+							auth: {
+								user: "tanmoy@headless.ltd",
+								pass: "ms01ju*#s}KI"
+							}
 						});
-					});
-				});
-			});
+
+						var mailOptions = {
+							from: "tanmoy@headless.ltd",
+							to: data.email,
+							bcc: "ndec.bd@gmail.com",
+							subject: "Registration in 5th NEC",
+							text:
+								"Hello,\n\n" +
+								"Please bring the attached pdf on th 1st day.",
+							attachments: [
+								{
+									filename: "5thNECadmit.pdf",
+									path: pdfName,
+									contentType: "application/pdf"
+								}
+							]
+						};
+
+						transporter.sendMail(mailOptions, function (err) {
+							if (err) {
+								//return cb(err, null);
+							}
+							//return cb(null, "success");
+							else {
+								console.log("mail sent");
+								fs.unlinkSync(pdfName);
+								fs.unlinkSync(htmlName);
+							}
+						});
+						console.log('Woot! Success!');
+						console.log(success);
+					}
+				}
+			);
+
 			return res.json({ success: true, participant: data });
 		} else {
 			return res.json({ success: false, err: err });
@@ -263,12 +257,12 @@ mainRouter.get("/sqltest", function (req, res) {
 
 	con.connect(function (err) {
 		if (err) {
-			return res.json({ok: false});
+			return res.json({ ok: false });
 		}
 		let sql = "SELECT * FROM `user` WHERE 1";
 
 		con.query(sql, function (err, result) {
-			if (err) return res.json({ok: false});
+			if (err) return res.json({ ok: false });
 			return res.json(JSON.stringify(result));
 		});
 	});
@@ -284,11 +278,11 @@ mainRouter.get("/atlastest", function (req, res) {
 		.then(() => {
 			// if all is ok we will be here
 			console.log("here");
-			return res.json({ok: "Db initialized"});
+			return res.json({ ok: "Db initialized" });
 		})
 		.catch(err => {
 			// if error we will be here
-			return res.json({ok: false, err: err});
+			return res.json({ ok: false, err: err });
 			//process.exit(1);
 		});
 
@@ -305,11 +299,11 @@ mainRouter.get("/mlabtest", function (req, res) {
 		.then(() => {
 			// if all is ok we will be here
 			console.log("here");
-			return res.json({ok: "Db initialized"});
+			return res.json({ ok: "Db initialized" });
 		})
 		.catch(err => {
 			// if error we will be here
-			return res.json({ok: false, err: err});
+			return res.json({ ok: false, err: err });
 			//process.exit(1);
 		});
 

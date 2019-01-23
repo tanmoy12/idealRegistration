@@ -39,6 +39,7 @@ const styles =theme=>( {
     display: "flex",
     //justifyContent: "center",
     //alignItems: "center",
+		marginTop: 20,
     [theme.breakpoints.up('md')]: {
       flex:1,
       marginRight:"10%"
@@ -150,7 +151,7 @@ class UserInput extends React.Component {
         individual_events.push("Extempore Speech");
       }
       if (isw) {
-        individual_events.push("Instant Story Writting");
+        individual_events.push("Instant Story Writing");
       }
       if (wp) {
         individual_events.push("Word Play");
@@ -228,7 +229,8 @@ class UserInput extends React.Component {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+						
           }}
         >
          <FormHelperText
@@ -316,7 +318,7 @@ class UserInput extends React.Component {
                       value="isw"
                     />
                   }
-                  label="Instant Story Writting"
+                  label="Instant Story Writing"
                 />
                 {this.props.participant.level !== "University" && (
                   <FormControlLabel
@@ -383,7 +385,7 @@ class UserInput extends React.Component {
             <FormControl component="fieldset" className={classes.formControl}>
               <FormLabel component="legend">Team Events</FormLabel>
               <FormHelperText style={{ color: "green", fontSize: 18 }}>
-                You and Your TeamMates should have the same Team name
+                You and Your Team mates should have the same Team name
               </FormHelperText>
               <FormGroup>
                 {(this.props.participant.level !== "University" &&

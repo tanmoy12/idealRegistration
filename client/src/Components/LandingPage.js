@@ -106,7 +106,7 @@ class LandingPage extends Component {
 					>
 						<FormHelperText
 							id="component-error-text"
-							style={{ color: "green", fontSize: 30 }}
+							style={{ color: "green", fontSize: 30, padding: 10 }}
 						>
 							Your Registration is completed successfully. Your admit card will
 							be sent to your mail very soon.

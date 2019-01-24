@@ -153,10 +153,12 @@ mainRouter.post("/event", function (req, res) {
 						subject: "Registration for 5th NEC",
 						text:
 							"Hello,\n\n" +
-							"Please bring the attached pdf for entry in the carnival.",
+							"Thank you for registering for 5th National English" + "Carnival 2019. Please bring the attached" + 
+							"e-ticket with you to the venue in print or on your"+ "device. There will be no facility to print" 
+							+"e-tickets at the venue.\n\n"+"See you there!",
 						attachments: [
 							{
-								filename: "5thNECadmit.pdf",
+								filename: "5th_NEC_registration.pdf",
 								path: pdfName,
 								contentType: "application/pdf"
 							}

@@ -108,8 +108,8 @@ class LandingPage extends Component {
 							id="component-error-text"
 							style={{ color: "green", fontSize: 30, padding: 10 }}
 						>
-							Your Registration is completed successfully. Your admit card will
-							be sent to your mail very soon.
+							Your Registration is completed successfully. Your entry pass will
+							be sent to your mail very soon. [Please check your spam folder in case the mail reaches there and mark as "not spam"]
 						</FormHelperText>
 					</div>
 				)}

@@ -30,14 +30,14 @@ const styles =theme=>( {
     //width: 200
   }
 });
-let level = ["Primary", "Secondary", "College", "University"];
+let level = ["Junior", "Secondary", "College"];
 class UserInput extends React.Component {
   state = {
     name: "",
     institution: "",
     email: "",
     contact: "",
-    level: "Primary",
+    level: "Junior",
     error: {},
     button:false
   };

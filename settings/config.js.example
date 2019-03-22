@@ -1,0 +1,4 @@
+module.exports = {
+  dbUrl: "mongodb://:@ds141185.mlab.com:41185/idealreg",
+  secret: ""
+};

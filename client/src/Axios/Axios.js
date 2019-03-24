@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const API_URL = "https://afternoon-sierra-90302.herokuapp.com";
+
 export function addParitcipant(name, institution, contact, email, level, cb) {
 	axios
-		.post("/main/participant", {
+		.post(API_URL + "/main/participant", {
 			name: name,
 			institution: institution,
 			contact: contact,
@@ -27,7 +29,7 @@ export function addParitcipant(name, institution, contact, email, level, cb) {
 
 export function addEvents(individualEvents, teamEvents, id, participant, cb) {
 	axios
-		.post("/main/event", {
+		.post(API_URL + "/main/event", {
 			teamEvents: teamEvents,
 			individualEvents: individualEvents,
 			id: id,
@@ -50,7 +52,7 @@ export function addEvents(individualEvents, teamEvents, id, participant, cb) {
 
 export function getParticpants(page, cb) {
 	axios
-		.post("/main/participants", {
+		.post(API_URL + "/main/participants", {
 			page: page
 		})
 		.then(res => {

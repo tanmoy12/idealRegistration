@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "b4ef3a0f152ae0e71945",
+    "revision": "351b1de150f4dabf4713",
     "url": "/static/css/main.baef3c37.chunk.css"
   },
   {
-    "revision": "b4ef3a0f152ae0e71945",
-    "url": "/static/js/main.75b9fca8.chunk.js"
+    "revision": "351b1de150f4dabf4713",
+    "url": "/static/js/main.871f3062.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/static/media/Arcon-Regular.46e0451e.otf"
   },
   {
-    "revision": "4ed04bacca693e59984c71c0e1618559",
+    "revision": "7159c0d7ca023c78c1bd9d2abcaa633d",
     "url": "/index.html"
   }
 ];

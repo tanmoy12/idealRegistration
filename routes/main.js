@@ -39,7 +39,7 @@ mainRouter.post("/event", function (req, res) {
 			});
 			data.teamEvent.forEach(event => {
 				qr_string =
-					qr_string + "\n" + event.event_name + " (" + event.team_name + ")";
+					qr_string + "\n" + event.name + " (" + event.value + ")";
 			});
 			var qr_png = qr.image(qr_string, { type: "png" });
 			var qrName = dataFolder + data.email + "_qr.png";
@@ -54,31 +54,24 @@ mainRouter.post("/event", function (req, res) {
 				+ '<meta charset="utf-8" />'
 				+ '</head>'
 
-				+ '<body style="background-image:url(' + dataPath + 'background.jpg); max-width: 800px; height: 825px">'
+				+ '<body style="background-image:url(' + dataPath + 'bg4.jpg); max-width: 800px; height: 825px">'
 				+ '<div style="padding: 20px; padding-bottom: 0px; border-right: 3px solid black; top: 20px; left: 0px; position: absolute;">'
-				+ '<img style="width: 100px; height: auto;" src="' + dataPath + 'e.png" />'
+				+ '<img style="width: 100px; height: auto;" src="' + dataPath + 'ielc_logo.png" />'
 				+ '</div>'
-				+ '<div style="padding: 20px; position: absolute; left: 210px; top: 0px">'
-				+ '<h2 style="text-align: left">5th NATIONAL</h2>'
-				+ '<h2 style="text-align: left">ENGLISH CARNIVAL</h2>'
+				+ '<div style="padding: 20px; position: absolute; left: 180px; top: 0px">'
+				+ '<img style="width: 350px; height: auto;" src="' + dataPath + 'ielc.png" />'
 				+ '<div></div>'
-				+ '<h4 style="font-weight: bold; text-align: left">FEBRUARY 7-9, 2019</h4>'
+				+ '<h4 style="font-weight: bold; text-align: left">APRIL 11-13, 2019</h4>'
 				+ '</div>'
-				+ '<div style="position: absolute; left: 0px; top: 200px; padding: 20px; width: 350px; border-right: 3px solid black">'
+				+ '<div style="position: absolute; left: 20px; top: 230px; padding: 20px; width: 220px; height: 140px; border-style: groove; border-radius: 25px; border-color: black; box-shadow: 5px 10px 18px #888888;">'
 				+ '<h4 style="margin: 10px">' + data.name + '</h4>'
 				+ '<h5 style="margin: 10px">' + data.institution + '</h5>'
 				+ '<h5 style="margin: 10px">' + data.level + '</h5>'
 				+ '<h6 style="margin: 10px">(' + data.email + ')</h6>'
 				+ '</div>'
-				+ '<div style="position: absolute; left: 400px; top: 200px; padding: 20px">'
-				+ '<img style="width: 100px; height: auto" src="' + dataPath + 'ndec_logo.png" />'
-				+ '</div>'
-				+ '<div style="position: absolute; top: 380px;left: 0px; padding: 20px; border-right: 3px solid black">'
-				+ '<img style="width: 100px; height: auto;" src="' + dataPath + data.email + '_qr.png" />'
-				+ '</div>'
-				+ '<div style="position: absolute; left: 210px; top: 340px; padding: 30px; ">'
+				+ '<div style="position: absolute; left: 310px; top: 220px; padding: 20px; height: 360px; width: 160px; border-style: groove; border-radius: 25px; border-color: black; box-shadow: 5px 10px 18px #888888;">'
 				+ '<h3>Registered events</h3>'
-				+ '<ul style="list-style-type:square; font-size: 12px;">';
+				+ '<ul style="list-style-type:square; list-style-position: initial; font-size: 10px; padding-left: 15px;">';
 			data.individualEvent.forEach(event => {
 				page = page + "	<li>" + event + "</li>";
 			});
@@ -86,9 +79,9 @@ mainRouter.post("/event", function (req, res) {
 				page =
 					page +
 					"	<li>" +
-					event.event_name +
+					event.value +
 					" (" +
-					event.team_name +
+					event.name +
 					")" +
 					"</li>";
 			});
@@ -97,7 +90,12 @@ mainRouter.post("/event", function (req, res) {
 				+ '</ul>'
 				+ '</div>'
 
-				+ '<div style="position: absolute; left: 0px; top: 530px; padding: 30px; max-width: 540px; text-align: justify">'
+				+ '<div style="position: absolute; top: 430px; left: 20px; padding: 20px; height: 140px; width: 220px; border-style: groove; border-radius: 25px; border-color: black; box-shadow: 5px 10px 18px #888888;">'
+				+ '<img style="width: 100px; height: auto; display: block; margin: 7% auto;" src="' + dataPath + data.email + '_qr.png" />'
+				+ '</div>'
+
+
+				+ '<div style="position: absolute; left: 0px; top: 600px; padding: 30px; max-width: 500px; text-align: justify">'
 				+ '<p style="font-size: 12px;"># Gates open at 02:00PM on the first day and at 08:00AM on the next two'
 				+ ' days. Please bring this ticket for payment and participation. Print or any electronic format is acceptable. Show'
 				+ ' this ticket, complete your payment and get your coupons and ID card. </p>'
@@ -136,29 +134,29 @@ mainRouter.post("/event", function (req, res) {
 					res.json(data);
 
 					var transporter = nodemailer.createTransport({
-						host: "ndec.club",
+						host: "mail.idealenglishlanguageclub.com",
 						port: 465,
 						secure: true,
 						tls: { rejectUnauthorized: false },
 						auth: {
-							user: "carnival@ndec.club",
-							pass: "carnivalndecclub"
+							user: "carnival@idealenglishlanguageclub.com",
+							pass: "ielccarnivalideal"
 						}
 					});
 
 					var mailOptions = {
-						from: "carnival@ndec.club",
+						from: "carnival@idealenglishlanguageclub.com",
 						to: data.email,
-						bcc: "ndec.bd@gmail.com",
-						subject: "Registration for 5th NEC",
+						bcc: "",
+						subject: "Registration for 3rd NELC",
 						text:
 							"Hello,\n\n" +
-							"Thank you for registering for 5th National English" + "Carnival 2019. Please bring the attached" + 
+							"Thank you for registering for 3rd National English" + "Language Carnival 2019. Please bring the attached" + 
 							"e-ticket with you to the venue in print or on your"+ "device. There will be no facility to print" 
 							+"e-tickets at the venue.\n\n"+"See you there!",
 						attachments: [
 							{
-								filename: "5th_NEC_registration.pdf",
+								filename: "3rd_NELC_registration.pdf",
 								path: pdfName,
 								contentType: "application/pdf"
 							}
@@ -174,9 +172,9 @@ mainRouter.post("/event", function (req, res) {
 						else {
 							console.log("mail sent");
 							fs.appendFileSync('logs.txt', '/event email success' + JSON.stringify(err) + "\n");
-							fs.unlinkSync(pdfName);
-							fs.unlinkSync(htmlName);
-							fs.unlinkSync(qrName);
+							// fs.unlinkSync(pdfName);
+							// fs.unlinkSync(htmlName);
+							// fs.unlinkSync(qrName);
 						}
 					});
 				});

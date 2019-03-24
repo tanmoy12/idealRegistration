@@ -12,7 +12,8 @@ const styles = theme => ({
     justifyContent: "center",
     alignItems: "center",
     fontSize: "20px",
-    margin: "2% 10%",
+    margin: "0% 10%",
+    marginTop: "24px",
     borderBottom: "ridge"
   }
 });

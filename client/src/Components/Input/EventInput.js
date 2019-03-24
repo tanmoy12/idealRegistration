@@ -148,13 +148,15 @@ class UserInput extends React.Component {
       indObj: inds,
       teamObj: teams,
       errors: {},
-      glberr: ''
+      glberr: '',
+      pLoading: false
     }
   }
 
   addEvent = () => {
     let individual_events = [];
     let team_event = [];
+    this.setState({pLoading: true});
 
     this.state.indObj.forEach(ind => {
       if (ind.selected) individual_events.push(ind.value);
@@ -183,6 +185,7 @@ class UserInput extends React.Component {
       team_event,
       this.props.participant._id
     );
+    this.setState({pLoading: false});
   }
 
   handleChangeInd = (i) => {
@@ -262,7 +265,6 @@ class UserInput extends React.Component {
                       placeholder="Enter a Team Name"
                       value={tm.name}
                       onChange={(e) => this.handleChangeTeamName(e, i)}
-                      margin="normal"
                     />
                     <FormHelperText style={{ color: "red" }}>{this.state.errors[tm.value]}</FormHelperText>
                   </React.Fragment>
@@ -286,6 +288,7 @@ class UserInput extends React.Component {
             style={{ margin: 10 }}
             color="secondary"
             onClick={this.addEvent}
+            disabled={this.state.pLoading}
           >
             Participate
           </Button>

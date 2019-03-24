@@ -4,28 +4,28 @@ import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { MenuItem, Button, FormHelperText } from "@material-ui/core";
 import { userInput } from "../../Validator/userValidator";
-const styles =theme=>( {
+const styles = theme => ({
   root: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    margin:'0 10%',
-    marginBottom:'5%'
+    margin: '0% 10%',
+    marginBottom: '5%'
   },
   input: {
     // [theme.breakpoints.up('sm')]: {
     //   width:450
     // },
-    width:"100%",
-    maxWidth:450,
+    width: "100%",
+    maxWidth: 450,
     display: "flex",
     flex: 1,
     flexDirection: "flex-end"
   },
   textField: {
     [theme.breakpoints.up('sm')]: {
-      width:450
+      width: 450
     }
     //width: 200
   }
@@ -39,7 +39,7 @@ class UserInput extends React.Component {
     contact: "",
     level: "Junior",
     error: {},
-    button:false
+    button: false
   };
   handleChange = props => events => {
     this.setState({ [props]: events.target.value });
@@ -71,12 +71,13 @@ class UserInput extends React.Component {
     console.log("userinput");
     return (
       <div className={classes.root}>
-        <FormHelperText
-          id="component-error-text"
-          style={{ color: "red", fontSize: 30 }}
-        >
-          {this.props.glberr}
-        </FormHelperText>
+        {this.props.glberr &&
+          <FormHelperText
+            id="component-error-text"
+            style={{ color: "red", fontSize: 30 }}>
+            {this.props.glberr}
+          </FormHelperText>
+        }
         <TextField
           id="standard-search"
           label="Name"
@@ -148,7 +149,7 @@ class UserInput extends React.Component {
           {this.state.error.level}
         </FormHelperText>
         <Button
-        disabled={this.props.button}
+          disabled={this.props.button}
           variant="contained"
           style={{ margin: 10 }}
           color="secondary"

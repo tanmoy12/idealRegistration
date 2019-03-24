@@ -49,9 +49,9 @@ app.use("/main", mainRouter);
     res.send('express server running');
 });*/
 
-app.get("*", function(req, res) {
-	res.sendFile(path.join(__dirname, "client/build", "index.html"));
-});
+// app.get("*", function(req, res) {
+// 	res.sendFile(path.join(__dirname, "client/build", "index.html"));
+// });
 
 // run server
 app.listen(port);

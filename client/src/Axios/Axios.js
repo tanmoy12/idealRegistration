@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://afternoon-sierra-90302.herokuapp.com";
+const API_URL = "http://localhost:5000";
 
 export function addParitcipant(name, institution, contact, email, level, cb) {
 	axios

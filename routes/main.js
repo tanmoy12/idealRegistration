@@ -96,9 +96,13 @@ mainRouter.post("/event", function (req, res) {
 
 
 				+ '<div style="position: absolute; left: 0px; top: 600px; padding: 30px; max-width: 500px; text-align: justify">'
-				+ '<p style="font-size: 12px;"># Gates open at 02:00PM on the first day and at 08:00AM on the next two'
-				+ ' days. Please bring this ticket for payment and participation. Print or any electronic format is acceptable. Show'
-				+ ' this ticket, complete your payment and get your coupons and ID card. </p>'
+        + '<p style="font-size: 12px;"># Please bring this ticket for participating in the registered events. Screenshot '
+        + 'or printed format is acceptable. For more information please call : <br>'
+        + 'President : 01631787333 <br>'
+        + 'General Secretary : 01787282960<br>'
+        + 'Vice President of P&P : 01511326254<br>'
+        + 'Vice President of ICT : 01779770359<br>'
+        + 'NB : The validity of this ticket is till April 13,2019 </p>'
 				+ '</div>'
 				+ '<div style="position: absolute; top: 765px; left: 235px">'
 				+ '<h6 style="text-align: center; margin: 10px">Powered by </h6>'

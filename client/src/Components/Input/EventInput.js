@@ -47,19 +47,19 @@ const jInd = {
   "wg": "Word Game",
   "is": "Instant Story writing",
   "ft": "Flick Through",
-  "ma": "Marvel &amp; DC quiz",
+  "ma": "Marvel & DC quiz",
   "rc": "Recitation",
   "pc": "Photography contest and submission",
   "cs": "Composition submission",
-  "sc": "Sketch competition"
+  "sc": "Sketch competition",
+  "sb": "Scrap book"
 }
 
 const jTeam = {
   "bb": "Book based quiz",
   "mq": "Mega quiz",
   "pc": "POP culture quiz",
-  "wm": "Wall magazine",
-  "sb": "Scrap book"
+  "wm": "Wall magazine"
 }
 
 const sInd = {
@@ -68,14 +68,14 @@ const sInd = {
   "wg": "Word Game",
   "is": "Instant Story writing",
   "ft": "Flick Through",
-  "ms": "Marvel &amp; DC quiz",
+  "ms": "Marvel & DC quiz",
   "tc": "Turn Coat ",
   "es": "Extempore Speech",
-  "mp": "Multimedia presentation",
   "rc": "Recitation ",
   "pc": "Photography contest and submission",
   "cs": "Composition submission",
-  "sc": "Sketch competition "
+  "sc": "Sketch competition ",
+  "sb": "Scrap book"
 }
 
 const sTeam = {
@@ -84,7 +84,7 @@ const sTeam = {
   "mq": "Mega quiz",
   "pc": "POP culture quiz",
   "wm": "Wall magazine",
-  "sb": "Scrap book"
+  "mp": "Multimedia presentation",
 }
 
 const cInd = {
@@ -96,11 +96,11 @@ const cInd = {
   "md": "Marvel & DC quiz",
   "tc": "Turn Coat",
   "es": "Extempore Speech",
-  "mp": "Multimedia presentation",
   "rc": "Recitation",
   "pc": "Photography Contest and Submission",
   "cs": "Composition Submission",
-  "sc": "Sketch Competition"
+  "sc": "Sketch Competition",
+  "sb": "Scrap Book"
 }
 
 const cTeam = {
@@ -109,7 +109,7 @@ const cTeam = {
   "mq": "Mega Quiz",
   "pc": "POP Culture Quiz",
   "wm": "Wall Magazine",
-  "sb": "Scrap Book"
+  "mp": "Multimedia presentation"
 }
 
 class UserInput extends React.Component {

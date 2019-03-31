@@ -58,7 +58,7 @@ const jInd = {
 const jTeam = {
   "bb": "Book based quiz",
   "mq": "Mega quiz",
-  "pc": "POP culture quiz",
+  "pc": "Binge trivia",
   "wm": "Wall magazine"
 }
 
@@ -107,7 +107,7 @@ const cTeam = {
   "lc": "Literature Quiz",
   "bb": "Book Based Quiz",
   "mq": "Mega Quiz",
-  "pc": "POP Culture Quiz",
+  "pc": "Binge trivia",
   "wm": "Wall Magazine",
   "mp": "Multimedia presentation"
 }

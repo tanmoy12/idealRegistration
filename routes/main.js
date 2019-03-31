@@ -33,7 +33,7 @@ mainRouter.post("/event", function (req, res) {
 			let dataPath = "file://" + process.cwd() + "/data/";
 			let dataFolder = process.cwd() + "/data/";
 			var qr = require("qr-image");
-			var qr_string = data._id + "\n" + data.email + "\n" + data.level + "\n";
+			var qr_string = btoa(data._id).substr(8) + "\n" + data.email + "\n" + data.level + "\n";
 			data.individualEvent.forEach(event => {
 				qr_string = qr_string + "\n" + event;
 			});
@@ -67,7 +67,8 @@ mainRouter.post("/event", function (req, res) {
 				+ '<h4 style="margin: 10px">' + data.name + '</h4>'
 				+ '<h5 style="margin: 10px">' + data.institution + '</h5>'
 				+ '<h5 style="margin: 10px">' + data.level + '</h5>'
-				+ '<h6 style="margin: 10px">(' + data.email + ')</h6>'
+        + '<h6 style="margin: 10px">(' + data.email + ')</h6>'
+        + '<h6 style="margin: 10px">(' + btoa(data._id).substr(8) + ')</h6>'
 				+ '</div>'
 				+ '<div style="position: absolute; left: 310px; top: 220px; padding: 20px; height: 360px; width: 160px; border-style: groove; border-radius: 25px; border-color: black; box-shadow: 5px 10px 18px #888888;">'
 				+ '<h3>Registered events</h3>'

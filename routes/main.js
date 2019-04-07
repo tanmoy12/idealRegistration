@@ -12,6 +12,7 @@ mainRouter.post("/participant", function (req, res) {
 
 	fs.appendFileSync('logs.txt', '/particiapant ' + JSON.stringify(req.body) + "\n");
 	Participant.insertNewParticipant(req.body, (status, err, data) => {
+    
 		if (status === 200) {
 			fs.appendFileSync('logs.txt', 'participant insert success' + "\n");
 			return res.json(data);
@@ -32,8 +33,9 @@ mainRouter.post("/event", function (req, res) {
 
 			let dataPath = "file://" + process.cwd() + "/data/";
 			let dataFolder = process.cwd() + "/data/";
-			var qr = require("qr-image");
-			var qr_string = btoa(data._id).substr(8) + "\n" + data.email + "\n" + data.level + "\n";
+      var qr = require("qr-image");
+      var hashed = data._id.toString(36);
+			var qr_string = hashed.substr(hashed.length-9, hashed.length-1) + "\n" + data.email + "\n" + data.level + "\n";
 			data.individualEvent.forEach(event => {
 				qr_string = qr_string + "\n" + event;
 			});
@@ -64,11 +66,11 @@ mainRouter.post("/event", function (req, res) {
 				+ '<h4 style="font-weight: bold; text-align: left">APRIL 11-13, 2019</h4>'
 				+ '</div>'
 				+ '<div style="position: absolute; left: 20px; top: 230px; padding: 20px; width: 220px; height: 140px; border-style: groove; border-radius: 25px; border-color: black; box-shadow: 5px 10px 18px #888888;">'
-				+ '<h4 style="margin: 10px">' + data.name + '</h4>'
-				+ '<h5 style="margin: 10px">' + data.institution + '</h5>'
-				+ '<h5 style="margin: 10px">' + data.level + '</h5>'
-        + '<h6 style="margin: 10px">(' + data.email + ')</h6>'
-        + '<h6 style="margin: 10px">(' + btoa(data._id).substr(8) + ')</h6>'
+				+ '<h4 style="margin: 5px">' + data.name + '</h4>'
+				+ '<h5 style="margin: 5px">' + data.institution + '</h5>'
+				+ '<h5 style="margin: 5px">' + data.level + '</h5>'
+        + '<h6 style="margin: 5px">(' + data.email + ')</h6>'
+        + '<h6 style="margin: 5px">(' + hashed.substr(hashed.length-9, hashed.length-1)  + ')</h6>'
 				+ '</div>'
 				+ '<div style="position: absolute; left: 310px; top: 220px; padding: 20px; height: 360px; width: 160px; border-style: groove; border-radius: 25px; border-color: black; box-shadow: 5px 10px 18px #888888;">'
 				+ '<h3>Registered events</h3>'
@@ -97,8 +99,8 @@ mainRouter.post("/event", function (req, res) {
 
 
 				+ '<div style="position: absolute; left: 0px; top: 600px; padding: 30px; max-width: 500px; text-align: justify">'
-        + '<p style="font-size: 12px;"># Please bring this ticket for participating in the registered events. Screenshot '
-        + 'or printed format is acceptable. For more information please call : <br>'
+        + '<p style="font-size: 12px;"># Please bring this ticket for participating in the registered events. '
+        + 'For more information please call : <br>'
         + 'President : 01631787333 <br>'
         + 'General Secretary : 01787282960<br>'
         + 'Vice President of P&P : 01511326254<br>'
@@ -139,25 +141,25 @@ mainRouter.post("/event", function (req, res) {
 					res.json(data);
 
 					var transporter = nodemailer.createTransport({
-						host: "mail.idealenglishlanguageclub.com",
+						host: "smtp.gmail.com",
 						port: 465,
 						secure: true,
 						tls: { rejectUnauthorized: false },
 						auth: {
-							user: "carnival@idealenglishlanguageclub.com",
-							pass: "ielccarnivalideal"
+							user: "3rd.ielc.nelc@gmail.com",
+							pass: "istarcharam"
 						}
 					});
 
 					var mailOptions = {
-						from: "carnival@idealenglishlanguageclub.com",
+						from: "3rd.ielc.nelc@gmail.com",
 						to: data.email,
-						bcc: "",
+						//bcc: "",
 						subject: "Registration for 3rd NELC",
 						text:
 							"Hello,\n\n" +
-							"Thank you for registering for 3rd National English" + "Language Carnival 2019. Please bring the attached" + 
-							"e-ticket with you to the venue in print or on your"+ "device. There will be no facility to print" 
+							"Thank you for registering for 3rd National English" + "Language Carnival 2019. Please bring the attached " + 
+							"e-ticket with you to the venue in print or on your "+ "device. There will be no facility to print " 
 							+"e-tickets at the venue.\n\n"+"See you there!",
 						attachments: [
 							{

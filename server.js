@@ -36,6 +36,9 @@ app.use(
 		exposedHeaders: "*"
 	})
 );
+
+const mainRouter = require("./routes/main");
+app.use("/main", mainRouter);
 // Serve static files from the React app after npm run build
 
 app.use(express.static(path.join(__dirname, "client/build")));
@@ -43,8 +46,7 @@ app.use("/public", express.static(__dirname + "/public"));
 
 app.use(express.static(process.cwd() + "/public"));
 // serving routes
-const mainRouter = require("./routes/main");
-app.use("/main", mainRouter);
+
 /*app.get('/', (req, res) => {
     res.send('express server running');
 });*/

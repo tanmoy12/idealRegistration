@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //const API_URL = "https://afternoon-sierra-90302.herokuapp.com";
-const API_URL = "http://localhost:5000";
+const API_URL = "http://3rd-ielc.headless.ltd";
 
 export function addParitcipant(name, institution, contact, email, level, cb) {
 	axios
@@ -19,7 +19,7 @@ export function addParitcipant(name, institution, contact, email, level, cb) {
 		.catch(err => {
 			if (err.response && err.response.status) {
 				if (err.response.status === 500)
-					return cb({ msg: "Server Error" }, null);cd
+					return cb({ msg: "Server Error" }, null);
 				return cb(err.response.data, null);
 			} else {
 				console.log(err);

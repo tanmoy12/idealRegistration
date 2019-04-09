@@ -4,7 +4,7 @@ const fs = require("fs");
 const Participant = require("../models/Participant");
 const mongoose = require("mongoose");
 const config = require("../settings/config");
-const nodemailer = require("nodemailer");
+//const nodemailer = require("nodemailer");
 var pdf = require('html-pdf');
 
 mainRouter.post("/participant", function (req, res) {
@@ -140,16 +140,36 @@ mainRouter.post("/event", function (req, res) {
 					fs.appendFileSync('logs.txt', '/event pdf success' + JSON.stringify(result) + "\n");
 					res.json(data);
 
-					var transporter = nodemailer.createTransport({
-						host: "smtp.gmail.com",
-						port: 465,
-						secure: true,
-						tls: { rejectUnauthorized: false },
-						auth: {
-							user: "3rd.ielc.nelc@gmail.com",
-							pass: "istarcharam"
-						}
-					});
+					const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+
+const oauth2Client = new OAuth2(
+     "301795750581-l2i3pu83rjiqd6os5qb1vvp51l51ivba.apps.googleusercontent.com", // ClientID
+     "VUHE1_3L4icqRU6E-JsQRRCL", // Client Secret
+     "https://developers.google.com/oauthplayground" // Redirect URL
+);
+
+oauth2Client.setCredentials({
+     refresh_token: "1/pn4-dXWvg4-E0R9V6VmwFlH83Nr5VIDRMYj-fTbu1PyY9FX_pgD6exTsIMAX0lFE"
+});
+
+async function f(){
+const tokens = await oauth2Client.refreshAccessToken()
+const accessToken = tokens.credentials.access_token
+
+const smtpTransport = nodemailer.createTransport({
+     service: "gmail",
+     auth: {
+          type: "OAuth2",
+          user: "3rd.ielc.nelc@gmail.com", 
+          clientId: "301795750581-l2i3pu83rjiqd6os5qb1vvp51l51ivba.apps.googleusercontent.com",
+          clientSecret: "VUHE1_3L4icqRU6E-JsQRRCL",
+          refreshToken: "1/pn4-dXWvg4-E0R9V6VmwFlH83Nr5VIDRMYj-fTbu1PyY9FX_pgD6exTsIMAX0lFE",
+          accessToken: accessToken
+     }
+});
+
 
 					var mailOptions = {
 						from: "3rd.ielc.nelc@gmail.com",
@@ -170,7 +190,7 @@ mainRouter.post("/event", function (req, res) {
 						]
 					};
 
-					transporter.sendMail(mailOptions, function (err) {
+					smtpTransport.sendMail(mailOptions, function (err) {
 						if (err) {
 							//return cb(err, null);
 							console.log(err);
@@ -184,6 +204,12 @@ mainRouter.post("/event", function (req, res) {
 							fs.unlinkSync(qrName);
 						}
 					});
+					}
+                    f();
+
+					
+
+					
 				});
 			});
 		}
